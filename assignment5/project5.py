@@ -20,7 +20,7 @@ def create_tdm (unique_word_vector, list_sentence_count):
 	for col_num, word in enumerate(unique_word_vector):
 		# df.insert(num,type,  num)
 		df.insert(col_num,word,'insert')
-		
+
 	# create list of all the series of rows to add to dataframe
 	#create a list for a column for keywords
 	for  num in range (len(list_sentence_count)):
@@ -61,8 +61,8 @@ create_tdm(test_File,test_total)
 
 
 
-# sentences = fileToList('sentences.txt')
-sentences = fileToList('test.txt')
+sentences = fileToList('sentences.txt')
+# sentences = fileToList('test.txt')
 stopwords = fileToList('stop_words.txt')
 
 #converts to lower case
@@ -124,9 +124,9 @@ sentences = [[i for i in s if i not in stopwords] for s in sentences]
 # print(list_counts[0])
 
 
-list3 = []
-list2 = []
-count_list = []
+# list3 = []
+# list2 = []
+# count_list = []
 # print(sentences)
 def word_count(sentence, count_list,uniq_list):
 	count_insert = []
@@ -148,6 +148,41 @@ def word_count(sentence, count_list,uniq_list):
 
 # print(count_list)
 # print(list2)
+list1 = []
+list2 = []
+list3 = []
+list4 = []
+count = 0
+for sentence in sentences:
+	for word in sentence:
+		if(word not in list1):
+			list1.append(word)
+		elif(word not in list2):
+			list2.append(word)
 
-for i in sentences:
-	print (i)
+		elif(word not in list3):
+			list3.append(word)
+		else:
+			list4.append(word)
+
+# print(count)
+len1 = len(list1)
+len2 = len(list2)
+len3 = len(list3)
+len4 = len(list4)
+
+print(len1)
+print (len2)
+print(len3)
+print(len4)
+print(len1 + len2 + len3 + len4)
+# print(list1)
+# print(list2)
+print(list3)
+
+# for sentence in sentences:
+	# str_count = sentence.count(list1[i])
+
+
+# str_count = sentence.count('room')
+# print(str_count)
