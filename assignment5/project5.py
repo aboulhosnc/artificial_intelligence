@@ -1,5 +1,6 @@
 import pandas as pd
-
+import re
+# from collections import counter
 test_File = list('abcdefghijklmnopqrstuvwxyz')
 
 # print(test_File)
@@ -38,14 +39,15 @@ def create_tdm (unique_word_vector, list_sentence_count):
 	# create cv based on create_tdm outputs cv to it
 	new_df.to_csv("output.csv",index =False, header = True)
 	# prints df for testing
-	print(new_df)
+	# print(new_df)
 
+def fileToList(filename):
+	textList = []
+	file = open(filename, encoding="utf8")
+	for line in file:
+		textList.append(line.strip())
 
-
-# for num, type in enumerate(test_File):
-# 	# df.insert(num,type,  num)
-# 	df.insert(num,type,'insert')
-# 	# print (i)
+	return textList
 
 test_insert = list('01234567890123456789012345')
 test_total = []
@@ -57,25 +59,95 @@ for i in range(50):
 create_tdm(test_File,test_total)
 # create_tdm()
 
-# print(len(test_insert))
-# print(len(test_total))
-# print(len(test_File))
-# test_total.append(test_File)
-# Pass a series in append() to append a row in dataframe
-# modDfObj = dfObj.append(pd.Series(['Raju', 21, 'Bangalore', 'India'], index=dfObj.columns ), ignore_index=True)
 
-# test_series = []
-# for i in range(len(test_total)):
-# 	# new_df = df.append(pd.Series(test_total[i],index = df.columns),ignore_index=True)
-# 	test_series.append(pd.Series(test_total[i],index = df.columns))
 
-# new_df = df.append(test_total, ignore_index = True)
-# new_df = df.append(pd.Series(test_total[0],index = df.columns),ignore_index=True)
-# new_df = df.append(test_series,ignore_index=True)
-# df.append(test_series,ignore_index=True)
-# df.append()
-# print(test_total)
-# print(new_df)
-# print(df)
-# new_df.to_csv("output_" +(value) + ".csv", index=False, header = True)
-# new_df.to_csv("output.csv",index =False, header = True)
+# sentences = fileToList('sentences.txt')
+sentences = fileToList('test.txt')
+stopwords = fileToList('stop_words.txt')
+
+#converts to lower case
+sentences = [s.lower() for s in sentences]
+
+#removes punctuation
+sentences = [re.sub('[\(\)\.\,\“\”\'\"\\\/\[\]\-–]', ' ', s) for s in sentences]
+
+#splits string into list with whitespace as the delimiter
+sentences = [s.split(' ') for s in sentences]
+
+#removes empty strings in the list
+sentences = [[i for i in s if re.search('^$', i) == None] for s in sentences]
+
+#removes any digits in the list
+sentences = [[i for i in s if re.search('\d+.*', i) == None] for s in sentences]
+
+#removes any stop words
+sentences = [[i for i in s if i not in stopwords] for s in sentences]
+
+# [print (i) for i in sentences]
+# print(sentences)
+
+
+
+# list_counts = tuple()
+# list_counts = []
+# count_list = list('123456789')
+# list_counts.append(count_list)
+# count_list.clear()
+# count_list = list('987654321')
+# list_counts.append(count_list)
+# print(list_counts)
+
+
+# def count_list ()
+
+
+# for sentence in sentences:
+# 	for word in sentence:
+# 		count_list.append(1)
+# 		# if word not in list2:
+# 		# 	list2.append(word)
+# 		# else:
+# 		# 	list3.append(word)
+# 	list_counts.append(count_list)
+# 	print(list_counts)
+# 	print(len(count_list))
+# 	print(count_list)
+# 	count_list.clear()
+# # print (list2)
+# # print(list3)
+# # print(count_list)
+# print('length of first sentence is ', len(sentences[0]))
+# # print(len(sentences[0]))
+# # print(sentences[0])
+# # print(len(count_list))
+# print('length of first count in list is ',len(list_counts[0]))
+# print(list_counts[0])
+
+
+list3 = []
+list2 = []
+count_list = []
+# print(sentences)
+def word_count(sentence, count_list,uniq_list):
+	count_insert = []
+
+	for index, word in sentence:
+		if word not in uniq_list:
+			# uniq_list.append(word)
+			count_insert.append(1)
+		else:
+			# list3.append(word)
+			count_insert.append(2)
+	count_list.append(count_insert)
+	# print(uniq_list)
+
+# def unique_word_Count()
+
+# for i in range(len(sentences)):
+# 	word_count(sentences[i],count_list,list2)
+
+# print(count_list)
+# print(list2)
+
+for i in sentences:
+	print (i)
