@@ -9,9 +9,9 @@ def fileToList(filename):
 	file = open(filename, encoding = "utf8")
 	for line in file:
 		textList.append(line.strip())
-		
+
 	return textList
-	
+
 sentences = fileToList('sentences.txt')
 stopwords = fileToList('stop_words.txt')
 
@@ -45,16 +45,16 @@ for s in sentences:
             dummy_list.append(w)
         elif w not in dummy_list2:
             dummy_list2.append(w)
-        
+
         elif w not in df.columns.values.tolist():
             df.insert(0, w, [], allow_duplicates = False)
-	
-            
-		
-			
+
+
+
+
 for i, s in enumerate(sentences):
 	df.loc[i] = [0 for i in range(len(df.columns))]
-	
+
 	for w in s:
 		if w in df.columns.values.tolist():
 			df.at[i, w] += 1
