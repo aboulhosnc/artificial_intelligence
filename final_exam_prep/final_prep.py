@@ -155,6 +155,7 @@ def main():
     print (list_length)
     print(int(list_length /2 ))
 
+<<<<<<< HEAD
     # plotPoints(df)
     weights = randomize_weights(6)
     print(weights)
@@ -278,6 +279,12 @@ def main():
     # print(new_weight1, new_weight2)
 
 
+=======
+    plotPoints(x_list,y_list,df)
+    weights = randomize_weights()
+    print(weights[0])
+    print(weights[1])
+>>>>>>> cc6ee8af97d7c6f853909a4f3eecec1899b47515
     # print(x_list)
     # print(y_list)
 
