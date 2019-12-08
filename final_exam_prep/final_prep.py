@@ -97,7 +97,8 @@ def main():
 
     plotPoints(x_list,y_list,df)
     weights = randomize_weights()
-    print(weights)
+    print(weights[0])
+    print(weights[1])
     # print(x_list)
     # print(y_list)
 
