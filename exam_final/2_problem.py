@@ -36,7 +36,7 @@ class Student():
 
 
 def list_create(data,name1,name2):
-    
+
      feature_list = data[name1].tolist()
      class_list = data[name2].tolist()
 
@@ -45,16 +45,17 @@ def list_create(data,name1,name2):
      for i, value in enumerate(class_list):
         if (value == 0):
             list_0.append(feature_list[i])
-        
+
         elif(value == 1):
-            list_1.append(feature_list[i])  
+            list_1.append(feature_list[i])
         elif(value == 2):
             list_2.append(feature_list[i])
 
      return list_0, list_1, list_2
-    
 
- 
+
+ def prob_distribution ():
+     print("test")
 
 def gausian_distribution (std_input, mean_input, prob_class, input_value):
     prob_input = (1 / (std_input * math.sqrt(2 * math.pi))) * math.exp((-(input_value - mean_input)**2)/(2 * std_input ** 2))
@@ -77,7 +78,7 @@ def loadData(filename):
 
     # print ("hello world!")
     # print ("Guru99")
-    
+
     # neuron1(value)
     today = date.today()
     d3 = today.strftime("%m/%d/%y")
@@ -140,20 +141,20 @@ def loadData(filename):
     strim = math.exp((-(input_value - mean_input)**2)/(2 * std_input ** 2))
 
     print(strim)
-    
+
 
     prob_case_1 = math.log(prob_input) + math.log(prob_female)
-    
+
 
     print(prob_case_1)
 
     print(prob_input)
 
-    
 
 
 
-    
+
+
     # print(mean_female)
     # print(mean_male)
     # print(std_female)
@@ -163,7 +164,7 @@ def loadData(filename):
 
     # if()
 
-    
+
 
     # print(train_df)
 
