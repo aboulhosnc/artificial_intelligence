@@ -88,69 +88,47 @@ def acc_prediction(test_result,true_result):
     # confusionMatrix = [trueA,trueB,trueC]
     ## pred A, pred B, predict C
     for num in range(len(true_result)):
-        if(true_result[num] == 0):
-            if(test_result[num] == 0):
-
-                print ("True is {}".format(true_result[num]))
-                print("Test is {}".format(test_result[num]))
-                print("...............")
-                count += 1
-
-        if(true_result[num] == 1):
-            if(test_result[num] == 1):
-
-                print ("True is {}".format(true_result[num]))
-                print("Test is {}".format(test_result[num]))
-                print("...............")
-                count += 1
-
-        if(true_result[num] == 2):
-            if(test_result[num] == 2):
-
-                print ("True is {}".format(true_result[num]))
-                print("Test is {}".format(test_result[num]))
-                print("...............")
-                count += 1
-
-
 
         if(true_result[num] == 0):
-            if(test_result[num == 0]):
+            if(test_result[num] ==  0):
                 trueA[0] = trueA[0] + 1
-                print(test_result[num])
-                print(true_result[num])
-                print("both 0s")
-                print("...............")
-            elif(test_result[num == 1]):
+                # print(test_result[num])
+                # print(true_result[num])
+                # print("both 0s")
+                # print("...............")
+            elif(test_result[num] == 1):
                 trueA[1] = trueA[1] + 1
-            elif(test_result[num == 2]):
+            elif(test_result[num] == 2):
                 trueA[2] = trueA[2] + 1
         #predictionB
+
         elif(true_result[num] == 1):
-            if(test_result[num == 0]):
+            if(test_result[num] ==  0):
                 trueB[0] = trueB[0] + 1
-
-            elif(test_result[num == 1]):
+                
+            elif(test_result[num] == 1):
                 trueB[1] = trueB[1] + 1
-                print(test_result[num])
-                print(true_result[num])
-                print("both ones")
-                print("...............")
-            elif(test_result[num == 2]):
+                # print(test_result[num])
+                # print(true_result[num])
+                # print("both 1s")
+                # print("...............")
+            elif(test_result[num] == 2):
                 trueB[2] = trueB[2] + 1
-
+        
+        #prediction C
         elif(true_result[num] == 2):
-            if(test_result[num == 0]):
+            if(test_result[num] ==  0):
                 trueC[0] = trueC[0] + 1
-
-            elif(test_result[num == 1]):
-                trueB[1] = trueC[1] + 1
-            elif(test_result[num == 2]):
+                
+            elif(test_result[num] == 1):
+                trueC[1] = trueC[1] + 1
+                
+            elif(test_result[num] == 2):
                 trueC[2] = trueC[2] + 1
-                print(test_result[num])
-                print(true_result[num])
-                print("both 2s")
-                print("...............")
+                # print(test_result[num])
+                # print(true_result[num])
+                # print("both 2s")
+                # print("...............")
 
         # if(test_model_result[num] == true_result[num]):
         #     true_prediction = true_prediction + 1
@@ -160,8 +138,8 @@ def acc_prediction(test_result,true_result):
     confusionMatrix = [trueA,trueB,trueC]
     total_acc = true_prediction/len(true_result)
     false_accuracy = false_prediction/len(true_result)
-    print(count/len(true_result) * 100)
-    print(count)
+    # print(count/len(true_result) * 100)
+    # print(count)
     return total_acc, false_accuracy, confusionMatrix
 
 
@@ -246,32 +224,7 @@ def main():
     test_file = "Ex2_test.csv"
 
 
-    test_female_list = [56.0307 ,
-                        64.2989
-                        ,60.3343
-                        ,51.8031
-                        ,47.8763
-                        ,58.5809
-                        ,65.7290
-                        ,60.9058
-                        ,60.2713
-                        ,63.4388]
-
-    test_male_list = [73.0330,
-                        87.1268,
-                        75.5307,
-                        80.1888,
-                        78.1822,
-                        80.7478,
-                        70.2774,
-                        87.6195,
-                        82.7291,
-                        90.0496,
-                        87.0834,
-                        80.0574,
-                        75.3048,
-                        71.3055,
-                        80.0849]
+   
 
     train_df = loadData(train_file)
     normalize_data(train_df,"feature")
@@ -379,9 +332,9 @@ def main():
     t1 = (tc / len(true_result)) * 100
 
 
-    # print(acc_model)
+    print(acc_model)
     # print(false_model)
-    # print(acc_list)
+    print(acc_list)
     print("Accuracy for true results over total is : {}".format(t1))
 
 
