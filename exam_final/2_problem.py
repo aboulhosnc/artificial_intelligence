@@ -43,18 +43,18 @@ def class_list_create(data,name1,name2):
     #  min_val = min(feature_list)
     class_list = data[name2].tolist()
     list_length = len(feature_list)
-    print("length of list is : {}".format(list_length))
+    # print("length of list is : {}".format(list_length))
 
     list_0, list_1, list_2 = ([] for i in range(3))
 
     for i, value in enumerate(class_list):
         if (value == 0):
             list_0.append(feature_list[i])
-            
+
 
         elif(value == 1):
             list_1.append(feature_list[i])
-            
+
         elif(value == 2):
             list_2.append(feature_list[i])
 
@@ -62,17 +62,36 @@ def class_list_create(data,name1,name2):
     # print("length of list is : {}".format(len(list_1)))
     # print("length of list is : {}".format(len(list_2)))
     return list_0, list_1, list_2, list_length
-            
+
 
     #  return normalize(list_0), normalize(list_1), normalize(list_2), list_length, max_val, min_val
     #  return list_0, list_1, list_2, list_length, max_val, min_val
-        
+
 
 
 def prob_distribution (list1):
     # prob_case_1 = math.log(prob_input) + math.log(prob_class)
     print("test")
-    
+
+def acc_prediction(test_list,true_list):
+    total_acc = 0
+    true_prediction = 0
+    false_accuracy = 0
+    false_prediction = 0
+    test_list = list()
+    for num, value in enumerate(true_list):
+        test_list.append("{} - {}".format(test_list[num], value))
+        # true_pos, true_neg, fal_pos, fals_neg = ([] for i in range(4))
+
+        if(value == test_list[num]):
+            true_prediction = true_prediction + 1
+        else:
+            false_prediction = false_prediction + 1
+    total_acc = true_prediction/len(true_list)
+    false_accuracy = false_prediction/len(true_list)
+    return total_acc, false_prediction, test_list
+
+
 # def normalize(list1):
 #     max_val = max(list1)
 #     min_val = min(list1)
@@ -81,6 +100,7 @@ def prob_distribution (list1):
 
 def normalize_data (data, name):
     data[name] = (data[name] - data[name].min()) / (data[name].max() - data[name].min())
+
     return data
 
 
@@ -88,10 +108,10 @@ def gausian_distribution (std_input, mean_input, input_value):
     prob_input = (1 / (std_input * math.sqrt(2 * math.pi))) * math.exp((-(input_value - mean_input)**2)/(2 * std_input ** 2))
     return prob_input
 
-def bays_prob(value, prob_1, prob_2, prob_3):
-    class1 = math.log(value) + math.log(prob_1)
-    class2 = math.log(value) + math.log(prob_2)
-    class3 = math.log(value) + math.log(prob_3)
+def bays_prob(value1,value2,value3, prob_1, prob_2, prob_3):
+    class1 = math.log(value1) + math.log(prob_1)
+    class2 = math.log(value2) + math.log(prob_2)
+    class3 = math.log(value3) + math.log(prob_3)
 
     result = list()
     result = predict_class(class1,class2,class3)
@@ -116,7 +136,7 @@ def prepare_data (list1, class_length):
     return mean_input, std_input, prob_class
 
 def plot_line (list1,list2,list3, x_list):
-    # title = 
+    # title =
     plt.plot(x_list,list1, 'r', label = "class 0")
     plt.plot(x_list,list2, 'b', label = "class 1")
     plt.plot(x_list,list3, 'g', label = "class 2")
@@ -150,7 +170,8 @@ def main():
     test_file = "Ex2_test.csv"
 
 
-    test_female_list = [56.0307 ,64.2989
+    test_female_list = [56.0307 ,
+                        64.2989
                         ,60.3343
                         ,51.8031
                         ,47.8763
@@ -188,7 +209,7 @@ def main():
 
     # normalize
     # print(list_class_0)
-    
+
     # print(list_class_1)
     # print(list_class_2)
     # print(max_val)
@@ -216,7 +237,7 @@ def main():
     len_list2 = len(test_male_list)
     prob_female1 =  len_list1/ (len_list1 + len_list2)
 
-    print(prob_female1)
+    # print(prob_female1)
 
     prob_male = len_list2 / ((len_list1 + len_list2))
 
@@ -230,7 +251,7 @@ def main():
     # male_distribution = list()
 
     test_value = np.arange(0,1,0.01)
-    print(len(test_value))
+    # print(len(test_value))
 
     # print(test_value)
 
@@ -238,17 +259,37 @@ def main():
         class1.append(gausian_distribution (std_1, mean_1,  input_value))
         class2.append(gausian_distribution (std_2, mean_2,  input_value))
         class3.append(gausian_distribution (std_3, mean_3,  input_value))
-    
-    test_set = test_df['feature'].tolist()
+
     normalize_data(test_df,"feature")
-    test_result = test_df['class'].tolist()
+    test_set = test_df['feature'].tolist()
+
+    for num, value in enumerate(test_set):
+        if(value == 0.0):
+            test_set[num] = 0.000000000000000000000000001
+    # print(test_set)
+
+
+    # test_num = math.log(0.000000000000000000000000001) + math.log(10/25)
+    # print(test_num)
+
+    true_result = test_df['class'].tolist()
+
 
     test_model_result = list()
-    for i in (test_set):
-        test_model_result.append(bays_prob(i,prob_1,prob_2,prob_3))
-    
-    print(test_model_result)
+    for input_value in (test_set):
+        value1 = gausian_distribution (std_1, mean_3,  input_value)
+        value2 = gausian_distribution (std_2, mean_2,  input_value)
+        value3 = gausian_distribution (std_3, mean_3,  input_value)
+        test_model_result.append(bays_prob(value1, value2, value3,prob_1,prob_2,prob_3))
 
+    print(test_model_result)
+    print(len(test_model_result))
+    print(len(true_result))
+    t1 = list()
+    # acc_model, false_model, t1 = acc_prediction(test_model_result, true_result)
+    # print(acc_model)
+    # print(false_model)
+    # print(t1)
 
 
 
@@ -256,7 +297,7 @@ def main():
     plot_line(class1,class2,class3,test_value)
 
 
-    
+
 
 
     # prob_case_1 = math.log(prob_input) + math.log(prob_female)
