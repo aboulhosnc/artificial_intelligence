@@ -73,23 +73,24 @@ def prob_distribution (list1):
     # prob_case_1 = math.log(prob_input) + math.log(prob_class)
     print("test")
 
-def acc_prediction(test_list,true_list):
+def acc_prediction(test_model_result,true_result):
+    
     total_acc = 0
     true_prediction = 0
     false_accuracy = 0
     false_prediction = 0
     test_list = list()
-    for num, value in enumerate(true_list):
-        test_list.append("{} - {}".format(test_list[num], value))
-        # true_pos, true_neg, fal_pos, fals_neg = ([] for i in range(4))
-
-        if(value == test_list[num]):
+    for num in range(len(true_result)):
+        # t1.append("{} - {}".format(true_result[num], test_model_result[num]))
+        if(test_model_result[num] == true_result[num]):
             true_prediction = true_prediction + 1
         else:
             false_prediction = false_prediction + 1
-    total_acc = true_prediction/len(true_list)
-    false_accuracy = false_prediction/len(true_list)
-    return total_acc, false_prediction, test_list
+    
+            
+    total_acc = true_prediction/len(true_result)
+    false_accuracy = false_prediction/len(true_result)
+    return total_acc, false_accuracy, test_list
 
 
 # def normalize(list1):
@@ -113,21 +114,24 @@ def bays_prob(value1,value2,value3, prob_1, prob_2, prob_3):
     class2 = math.log(value2) + math.log(prob_2)
     class3 = math.log(value3) + math.log(prob_3)
 
-    result = list()
+    # result = list()
     result = predict_class(class1,class2,class3)
     return result
 
 
 def predict_class(input1, input2, input3):
     # input1, input2, input3 = bays_prob(value)
-    class_test = list()
+    # class_test = list()
     if(input1 > input2 and input1 > input3):
-        class_test.append(0)
+        # class_test.append(0)
+        return 0
     elif(input2 > input1 and input2 > input3):
-        class_test.append(1)
+        # class_test.append(1)
+        return 1
     elif(input3 > input1 and input3 > input2):
-        class_test.append(2)
-    return class_test
+        # class_test.append(2)
+        return 2
+    # return class_test
 
 def prepare_data (list1, class_length):
     mean_input = mean(list1)
@@ -229,22 +233,22 @@ def main():
     # print(prob_2)
     # print(prob_3)
 
-    mean_female = mean(test_female_list)
-    mean_male = mean(test_male_list)
-    std_female = stdev(test_female_list)
-    std_male = stdev(test_male_list)
-    len_list1 = len(test_female_list)
-    len_list2 = len(test_male_list)
-    prob_female1 =  len_list1/ (len_list1 + len_list2)
+    # mean_female = mean(test_female_list)
+    # mean_male = mean(test_male_list)
+    # std_female = stdev(test_female_list)
+    # std_male = stdev(test_male_list)
+    # len_list1 = len(test_female_list)
+    # len_list2 = len(test_male_list)
+    # prob_female1 =  len_list1/ (len_list1 + len_list2)
 
-    # print(prob_female1)
+    # # print(prob_female1)
 
-    prob_male = len_list2 / ((len_list1 + len_list2))
+    # prob_male = len_list2 / ((len_list1 + len_list2))
 
-    std_input = std_female
-    mean_input = mean_female
+    # std_input = std_female
+    # mean_input = mean_female
 
-    input_value = 75
+    # input_value = 75
     # strim = math.exp((-(input_value - mean_input)**2)/(2 * std_input ** 2))
 
     class1, class2, class3 = ([] for i in range(3))
@@ -283,13 +287,29 @@ def main():
         test_model_result.append(bays_prob(value1, value2, value3,prob_1,prob_2,prob_3))
 
     print(test_model_result)
+    print(true_result)
     print(len(test_model_result))
     print(len(true_result))
-    t1 = list()
-    # acc_model, false_model, t1 = acc_prediction(test_model_result, true_result)
+    t1 = 0
+    tc = 0
+    fc = 0
+    acc_list = list()
+    acc_model, false_model, acc_list = acc_prediction(test_model_result, true_result)
+    for num in range(len(true_result)):
+        # t1.append("{} - {}".format(true_result[num], test_model_result[num]))
+        if(test_model_result[num] == true_result[num]):
+            # print("true")
+            tc = tc + 1
+        else:
+            # print("false")
+            fc = fc + 1
+    
+    t1 = (tc / len(true_result)) * 100
+    
+    
     # print(acc_model)
     # print(false_model)
-    # print(t1)
+    print("Accuracy for true results over total is : {}".format(t1))
 
 
 
