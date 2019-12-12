@@ -236,48 +236,21 @@ def main():
     list_class_0, list_class_1, list_class_2, total_length = ([] for i in range(4))
     list_class_0, list_class_1, list_class_2, total_length = class_list_create(train_df,"feature","class")
 
-    # normalize
-    # print(list_class_0)
-
-    # print(list_class_1)
-    # print(list_class_2)
-    # print(max_val)
-    # print(min_val)
-
-    # print(list_class_0)
-
-    # print(test_female_list)
+   
 
     mean_1, std_1, prob_1 = prepare_data(list_class_0, total_length)
     mean_2, std_2, prob_2 = prepare_data(list_class_1, total_length)
     mean_3, std_3, prob_3 = prepare_data(list_class_2, total_length)
 
-    # mean_female, std_female, prob_female = prepare_data(test_female_list, 25)
+   
 
-    # print(prob_1)
-    # print(prob_2)
-    # print(prob_3)
-
-    # mean_female = mean(test_female_list)
-    # mean_male = mean(test_male_list)
-    # std_female = stdev(test_female_list)
-    # std_male = stdev(test_male_list)
-    # len_list1 = len(test_female_list)
-    # len_list2 = len(test_male_list)
-    # prob_female1 =  len_list1/ (len_list1 + len_list2)
-
-    # # print(prob_female1)
-
-    # prob_male = len_list2 / ((len_list1 + len_list2))
-
-    # std_input = std_female
-    # mean_input = mean_female
+   
 
     # input_value = 75
     # strim = math.exp((-(input_value - mean_input)**2)/(2 * std_input ** 2))
 
     class1, class2, class3 = ([] for i in range(3))
-    # male_distribution = list()
+    
 
     test_value = np.arange(0,1,0.01)
     # print(len(test_value))
@@ -298,8 +271,7 @@ def main():
     # print(test_set)
 
 
-    # test_num = math.log(0.000000000000000000000000001) + math.log(10/25)
-    # print(test_num)
+    
 
     true_result = test_df['class'].tolist()
 
@@ -340,7 +312,7 @@ def main():
 
 
 
-    # plot_line(class1,class2,class3,test_value)
+    plot_line(class1,class2,class3,test_value)
 
 
 
