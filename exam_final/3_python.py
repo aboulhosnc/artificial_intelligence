@@ -39,7 +39,7 @@ class Student():
 def distance_from_center(center, total_distance, point):
     num = 1 - ( abs(center - point) / total_distance)
     return num
-    
+
 # assigns values to different singletons
 def singleton_value(value):
     num = 0
@@ -94,7 +94,7 @@ def singlton_output(col, row):
             singleton = "B"
         elif(col == 5):
             singleton = "C"
-    
+
     elif(row == 4):
         if(col == 1):
             singleton = "E"
@@ -106,7 +106,7 @@ def singlton_output(col, row):
             singleton = "B"
         elif(col == 5):
             singleton = "B"
-    
+
     elif(row == 5):
         if(col == 1):
             singleton = "E"
@@ -118,7 +118,7 @@ def singlton_output(col, row):
             singleton = "A"
         elif(col == 5):
             singleton = "B"
-    
+
     return singleton
 
 # return min value
@@ -143,7 +143,7 @@ def fuzzy_table(x,y):
         col = 4
     elif(x > 16):
         col = 5
-    
+
     if(y <= 4):
         row = 1
     elif(y> 4 and y <= 8):
@@ -154,10 +154,10 @@ def fuzzy_table(x,y):
         row = 4
     elif(y > 16):
         row = 5
-    print("Col : Row")
-    print(col,row)
+    # print("Col : Row")
+    # print(col,row)
     singleton = singlton_output(col, row)
-    
+
     return singleton
 
 
@@ -165,17 +165,17 @@ def fuzzy_table(x,y):
 # if no singleton is there or only one letter for everything returns a nonsense letter G
 def max_singleton(min1, min2, min3, min4, point1, point2, point3, point4):
     list1 = [min1,min2,min3,min4]
-    print("min list")
-    print(list1)
+    # print("min list")
+    # print(list1)
     list2 = [point1,point2,point3,point4]
-    print("point for letters")
-    print(list2)
+    # print("point for letters ")
+    # print(list2)
     a_list, b_list, c_list, d_list, e_list =[ [] for i in range(5)]
     list_max = [0,0]
     list_max_Letter = []
     list_singleton = ["A","B","C","D","E"]
     # print("test12lk3j")
-    print(list_singleton[2])
+    # print(list_singleton[2])
     for num in range(len(list2)):
         if(list2[num] == "E"):
             e_list.append(list1[num])
@@ -190,64 +190,43 @@ def max_singleton(min1, min2, min3, min4, point1, point2, point3, point4):
             a_list.append(list1[num])
 
     list_all = [a_list, b_list, c_list, d_list, e_list]
-
-    
-    
-    # if(len(a_list) > 0):
-    #     max_val = max(a_list)
-    #     list_max.append(max_val)
-    #     list_max_Letter.append("A")
-    # if(len(b_list) > 0):
-    #     max_val = max(b_list)
-    #     list_max.append(max_val)
-    #     list_max_Letter.append("B")
-    # if(len(c_list) > 0):
-    #     max_val = max(c_list)
-    #     list_max.append(max_val)
-    #     list_max_Letter.append("C")
-    # if(len(d_list) > 0):
-    #     max_val = max(d_list)
-    #     list_max.append(max_val)
-    #     list_max_Letter.append("D")
-    # if(len(e_list) > 0):
-    #     max_val = max(e_list)
-    #     list_max.append(max_val)
-    #     list_max_Letter.append("E")
-    # else
-    # list_all.sort(reverse = True)
-    # print(list_all)
-    # for
-    # print("lkajsdf {}".format(list_max))
+    a_max = 0
+    b_max = 0
+    c_max = 0
+    d_max = 0
+    e_max = 0
+    # list
+    list_max = [a_max, b_max, c_max, d_max, e_max]
 
     for i in range(len(list_all)):
         if(len(list_all[i]) > 0):
-            max_val = max(list_all[i])
-            # print(max_val)
-            # print(list_singleton[i])
-            if(max_val > 0 ):
-                list_max.append(max(list_all[i]))
-                list_max_Letter.append(list_singleton[i])
+            list_max[i] = max(list_all[i])
         else:
-            list_max.append(0)
-            list_max_Letter.append("G")
-    
-    # print(list_max[0], list_max[1])
-    # print(list_max_Letter[0], list_max_Letter[1] )
-    
-    list_max.sort(reverse = True)
-    # print(list_max)
-    list_max_Letter.sort(reverse = True)
-    return list_max[0], list_max[1], list_max_Letter[0], list_max_Letter[1] 
-    # return ("print")
-    # if(a_min =)
+            list_max[i] = 0
 
-def defuzzy_output (letter_1,letter_2, max_1, max_2):
-    if(max_1 + max_2 == 0):
-        output = 0
-    else:
-        output = (max_1 * singleton_value(letter_1) + max_2 * singleton_value(letter_2)) / (max_1 + max_2)
+    # print("list of max is : {}".format(list_max))
+    # print(a_max, b_max, c_max, d_max, e_max)
+    z_output = defuzzy_output(list_max)
+    # print("score is {}".format(z_output))
+
+
+    return z_output
+    # return "test"
+
+
+
+
+def defuzzy_output (list1):
+
+    # bot = (max1 + max2 + max3 + max4 + max5)
+    bot = sum(list1)
+    # print("sum for all is {}".format(bot))
+    if(bot == 0):
+        return 0
+    output = singleton_value("A") * list1[0] + singleton_value("B")*list1[1] + singleton_value("C")*\
+            list1[2] + list1[3] * singleton_value("D") + list1[4] * singleton_value("E") / bot
     return output
-   
+
 #starts by fuzzyfying the input
 #returns two x and ys to find which singleton it belongs too to plot points
 def fuzzy_value(x,y):
@@ -269,8 +248,9 @@ def fuzzy_value(x,y):
     point3 = fuzzy_table(x1,y2)
     point4 = fuzzy_table(x2,y2)
 
-    max_1, max_2, letter_1, letter_2 = max_singleton(min1, min2, min3, min4, point1, point2, point3, point4)
-    # test_run = max_singleton(min1, min2, min3, min4, point1, point2, point3, point4)
+    # max_1, max_2, letter_1, letter_2 = max_singleton(min1, min2, min3, min4, point1, point2, point3, point4)
+    test_run = max_singleton(min1, min2, min3, min4, point1, point2, point3, point4)
+    # test
 
     # print("1")
     # print(max_1)
@@ -281,16 +261,8 @@ def fuzzy_value(x,y):
     # print("B::::")
     # print(letter_2)
 
-    z_score =  defuzzy_output(letter_1,letter_2, max_1, max_2)
-    return z_score
 
-    # singleton_value(letter_1) * max_1 + letter
-
-
-
-
-
-    # if(singleton)
+    return test_run
 
 # hard coded triangles that have a range of values for x to go into
 # also returns decimal place that it goes in
@@ -369,8 +341,8 @@ def plot_mesh_real():
     ax = fig.gca(projection='3d')
 
     # Make data.
-    X = np.arange(0, 20, 0.25)
-    Y = np.arange(0, 20, 0.25)
+    X = np.arange(0, 20)
+    Y = np.arange(0, 20)
     X, Y = np.meshgrid(X, Y)
     Z = 0.6 * np.exp((-0.003 * (X - 20) ** 2) - ( 0.015 * (Y -14)** 2))
 
@@ -382,7 +354,7 @@ def plot_mesh_real():
     ax.set_zlim(0, 0.6)
     ax.set_ylabel('y label')
     ax.set_xlabel("x label")
-    
+
     # ax.zaxis.set_major_locator(LinearLocator(10))
     # ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
@@ -391,38 +363,44 @@ def plot_mesh_real():
 
     plt.show()
 
-# def plot_countour_tringle(z_list):
-#     ig, ax = plt.subplots()
-#     CS = ax.contour(X, Y, Z)
-#     x_list = np.arange(0, 20, 0.25)
-#     y_list = np.arange(0, 20, 0.25)
-#     # X, Y = np.meshgrid(X, Y)
-    
-#     manual_locations = [x_list, y_List, z_list]
-#     ax.clabel(CS, inline=1, fontsize=10, manual=manual_locations)
-#     ax.set_title('labels at selected locations')
-#     plt.show()
+def plot_countour_triangle(z_list):
+    X = np.arange(0, 20)
+    Y = np.arange(0, 20)
+
+    X, Y = np.meshgrid(X, Y)
+    Z = z_list
+
+    fig, ax = plt.subplots()
+    CS = ax.contour(X, Y, Z)
+    ax.clabel(CS, inline=1, fontsize=10)
+    ax.set_title('Contour Map based on fuzzy triangles')
+    # ax.set_title('Filled Contours Plot')
+    #ax.set_xlabel('x (cm)')
+    ax.set_ylabel('y label')
+    ax.set_xlabel("x label")
+    plt.show()
 
 def plot_mesh_triangle(z_list):
     fig = plt.figure()
     ax = fig.gca(projection='3d')
 
     # Make data.
-    X = np.arange(0, 20, 0.25)
-    Y = np.arange(0, 20, 0.25)
+    X = np.arange(0, 20)
+    Y = np.arange(0, 20)
 
     X, Y = np.meshgrid(X, Y)
-    Z = fuzzy_value(X,Y)
+    Z = z_list
 
     # Plot the surface.
-    surf = ax.plot_surface(X, Y, np.asarray(z_list), cmap= cm.coolwarm,
+    surf = ax.plot_surface(X, Y, Z, cmap= cm.coolwarm,
                        linewidth=0, antialiased=False)
 
     # Customize the z axis.
     ax.set_zlim(0, 0.6)
+    ax.set_title("Fuzzy Map for Control Surface")
     ax.set_ylabel('y label')
     ax.set_xlabel("x label")
-    
+
     # ax.zaxis.set_major_locator(LinearLocator(10))
     # ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
@@ -442,44 +420,53 @@ def main():
     # real_z = 0.6 * math.exp(-0.003*(x)-20) ** 2-0.015*(y)-14)**2)
     # test_z = 0.6 * math.exp((-0.003 * (x - 20) ** 2) -( 0.015 * (y -14)** 2))
 
-    
-    
 
-    z_list = list()
-    z_all_list = list()
-    # for i in range(20):
-    #     for j in range(20):
-    #         z_list.append(fuzzy_value(i,j))
-    #     z_all_list.append(z_list)
-    # print(len(z_all_list))
-    # print(len(z_list))
-    # np_test  = np.arange(400).reshape(20,20)
-    # # print(np_test)
-    # # np_test[1,1] = 150
-    # # print(np_test)
-    # for i in range(20):
-    #     for j in range(20):
-    #         # input = fuzzy_value(i,j)
-    #         # print(input)
-    #         # print("{} {} {}".format(i,j,fuzzy_value(i,j) ))
-    #         # np_z.insert(fuzzy_value(i,j),i,j)
-    #         np_test[i,j] = 5
-            
-            
-    
+
+
+    # z_list = list()
+    # z_all_list = list()
+
+
+    # np_test  = np..reshape(20,20)
+    np_test  = np.empty(shape=[20, 20])
+    # np.set_printoptions(precision=10)
+    for i in range(20):
+        for j in range(20):
+            # input = fuzzy_value(i,j)
+            np_test[i,j] = fuzzy_value(i,j)
+
+
+
     # np_test[0,1] = 150
     # print(np_test)
+    # np_test.around(, decimals=1)
+    # np_z[3,1] = 10.5
+    # print(np_test)
+    X = 5
+    Y = 5
+    z_real = 0.6 * np.exp((-0.003 * (X - 20) ** 2) - ( 0.015 * (Y -14)** 2))
     z_out_1 = fuzzy_value(5,5)
+    z_diff = z_real - z_out_1
     print("final output for coordinates 5, 5 is : {}".format(z_out_1))
+    print("real output for coordinates 5, 5 is : {}".format(z_real))
+    print("difference in z distance is :{}".format(abs(z_diff)))
     z_out = fuzzy_value(16,16)
+    X = 16
+    Y = 16
+    z_real_2 = 0.6 * np.exp((-0.003 * (X - 20) ** 2) - ( 0.015 * (Y -14)** 2))
+    z_diff_2 = z_real - z_out
     print("final output for coordinates 16, 16 is : {}".format(z_out))
+    print("real output for coordinates 16, 16 is : {}".format(z_real_2))
+    print("difference in z distance is :{}".format(abs(z_diff)))
 
     # z_1 = fuzzy_value(11.5,11.5)
     # print(z_1)
     # plot_countour_real()
     # plot_mesh_real()
-    # plot_mesh_triangle(z_list)
-    # plot_countour_tringle(z_list)
+
+    # accuracy =
+    plot_mesh_triangle(np_test)
+    plot_countour_triangle(np_test)
 
 
 
